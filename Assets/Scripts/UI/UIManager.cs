@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Pause")]
     [SerializeField] private GameObject pauseScreen;
+    [SerializeField] private GameObject audioMenu;
 
     private void Awake()
     {
@@ -61,6 +62,10 @@ public class UIManager : MonoBehaviour
         #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;   //Exits unity editor play mode (Can only be execuited in the editor)
         #endif
+    }
+    public void Volume()
+    {
+        audioMenu.SetActive(true); // Show the audio settings menu
     }
     #endregion
 

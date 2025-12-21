@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField] private GameObject settingsMenu;
+    [SerializeField] private GameObject optionsMenu;
+    [SerializeField] private GameObject levelSelectionMenu;
     public void Play()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(1); // Load the first level scene
@@ -9,7 +12,13 @@ public class MainMenu : MonoBehaviour
 
     public void OpenSettings()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Settings"); // Load the settings scene
+        settingsMenu.SetActive(true); // Show the settings menu
+        optionsMenu.SetActive(false); // Hide the options menu
+    }
+
+    public void levelSelection()
+    {
+        levelSelectionMenu.SetActive(true); // Show the level selection menu
     }
     
     public void QuitGame()
