@@ -11,12 +11,12 @@ public class UIManager : MonoBehaviour
     [Header("Pause")]
     [SerializeField] private GameObject pauseScreen;
     [SerializeField] private GameObject audioMenu;
+    [SerializeField] private MonoBehaviour playerAttack;
 
     private void Awake()
     {
         gameOverScreen.SetActive(false);
         pauseScreen.SetActive(false);
-
     }
 
     private void Update()
@@ -27,10 +27,12 @@ public class UIManager : MonoBehaviour
             if (pauseScreen.activeInHierarchy)
             {
                 PauseGame(false);
+                playerAttack.enabled = true;
             }
             else
             {
                 PauseGame(true);
+                playerAttack.enabled = false;
             }
         }
     }
@@ -66,6 +68,7 @@ public class UIManager : MonoBehaviour
     public void Volume()
     {
         audioMenu.SetActive(true); // Show the audio settings menu
+        pauseScreen.SetActive(false); // Hide the pause menu
     }
     #endregion
 

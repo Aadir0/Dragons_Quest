@@ -1,13 +1,16 @@
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 public class AudioSwitching : MonoBehaviour
 {
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject audioMenu;
-    public void Volume()
+    [SerializeField] private AudioMixer mixer;
+    public void Volume(float value)
     {
-        
+        mixer.SetFloat("Volume", value);
+        PlayerPrefs.SetFloat("Volume", value);
     }
 
     public void Back()

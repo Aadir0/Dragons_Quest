@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 60306290109055700}
   - component: {fileID: 6890501653524847625}
   - component: {fileID: 2662061530429556275}
-  - component: {fileID: 3717401404005939662}
   - component: {fileID: 3873130789872491131}
+  - component: {fileID: 3717401404005939662}
   - component: {fileID: 5120283889342736311}
   - component: {fileID: 1218122110356818558}
   - component: {fileID: 3519654488417917672}
@@ -171,31 +171,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &3717401404005939662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5613285039527847905}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bad90225a3078c64db7ad940e9a90d3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 8
-  jumpPower: 18
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  WallJumpX: 1500
-  WallJumpY: 750
-  JumpAudio: {fileID: 8300000, guid: e8fefc85780f3e64d9245fc41d5c5654, type: 3}
-  coyoteTime: 0.25
-  extraJump: 1
 --- !u!114 &3873130789872491131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,6 +197,31 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   firballSound: {fileID: 8300000, guid: 6b96bf44a33cb2142b5c8e93f56b7bf3, type: 3}
+--- !u!114 &3717401404005939662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5613285039527847905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bad90225a3078c64db7ad940e9a90d3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 6
+  jumpPower: 18
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  WallJumpX: 1500
+  WallJumpY: 750
+  JumpAudio: {fileID: 8300000, guid: e8fefc85780f3e64d9245fc41d5c5654, type: 3}
+  coyoteTime: 0.25
+  extraJump: 0
 --- !u!95 &5120283889342736311
 Animator:
   serializedVersion: 7
@@ -259,7 +259,6 @@ MonoBehaviour:
   startingHealth: 3
   iFramesDuration: 0.7
   numberOfFlashes: 3
-  isVisible: 1
   components:
   - {fileID: 3873130789872491131}
   - {fileID: 3717401404005939662}
