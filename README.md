@@ -4,9 +4,9 @@
 
 ### This is a game like infinte runner where you have to push yourself and run as far as you can go by clearing traps and killing some wandering enemys.
 ## Key Binds:
-- W - Move Left
-- D - Right
-- Space - Jump (Double tap for double jump)
+- W/Left Arrow - Move Left
+- D/Right Arrow - Move Right
+- Space - Jump
 - Left Mouse Click - Fire
 
 ## Hope You will enjoy this game!!
