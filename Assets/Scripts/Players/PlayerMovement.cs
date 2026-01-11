@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -37,16 +38,50 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int extraJump;
     private int jumpCounter;
 
+    [Header("Dash")]
+    [SerializeField] private float dashSpeed = 20f;
+    [SerializeField] private float dashDuration = 0.2f;
+    [SerializeField] private float dashCooldown = 1f;
+    [SerializeField] private AudioClip dashAudio;
+    private bool isDashing = false;
+    private float dashTimeLeft = 0f;
+    private float dashCooldownTimer = 0f;
+    private SpriteRenderer spriteRenderer;
+
     private void Awake()
     {
         //Grab references for rigidbody and animator or box collider from object
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        
+        if (SceneManager.GetActiveScene().buildIndex == 3)
+        {
+            extraJump = 1;
+        }
     }
 
     private void Update()
     {
+        // Update dash cooldown timer
+        if (dashCooldownTimer > 0)
+            dashCooldownTimer -= Time.deltaTime;
+
+        // Handle dashing
+        if (isDashing)
+        {
+            HandleDash();
+            return; // Skip normal movement while dashing
+        }
+
+        // Check for dash input (Left Ctrl)
+        if (Input.GetKeyDown(KeyCode.LeftControl) && dashCooldownTimer <= 0 && !isDashing && isGrounded())
+        {
+            StartDash();
+            return;
+        }
+
         // To get horizontal input keys.
         horizontalInput = Input.GetAxis("Horizontal");
 
@@ -155,7 +190,63 @@ public class PlayerMovement : MonoBehaviour
     //public so that other scripts can use it
     public bool canAttack()
     {
-        //Player can't shoot while on wall
-        return !onWall();
+        //Player can't shoot while on wall and not dashing
+        return !onWall() && !isDashing;
+    }
+
+    //----------------Dash logic---------------------
+    private void StartDash()
+    {
+        isDashing = true;
+        dashTimeLeft = dashDuration;
+        dashCooldownTimer = dashCooldown;
+        
+        // Play dash animation
+        anim.SetTrigger("dash");
+        
+        // Play dash sound
+        if (SoundManager.instance != null && dashAudio != null)
+            SoundManager.instance.Playsound(dashAudio);
+        
+        // Enable invincibility - ignore collision with Enemy/Trap layer (layer 10)
+        Physics2D.IgnoreLayerCollision(8, 10, true);
+        Physics2D.IgnoreLayerCollision(8, 9, true);
+    }
+
+    private void HandleDash()
+    {
+        dashTimeLeft -= Time.deltaTime;
+        
+        // Perform dash movement in the direction player is facing
+        float dashDirection = Mathf.Sign(transform.localScale.x);
+        body.linearVelocity = new Vector2(dashDirection * dashSpeed, 0);
+        
+        // End dash when time runs out
+        if (dashTimeLeft <= 0)
+        {
+            EndDash();
+        }
+    }
+
+    private void EndDash()
+    {
+        isDashing = false;
+        dashTimeLeft = 0f;
+        
+        // Disable invincibility - re-enable collision with Enemy/Trap layer (layer 10)
+        Physics2D.IgnoreLayerCollision(8, 10, false);
+        Physics2D.IgnoreLayerCollision(8, 9, false);
+        
+        // Reset velocity
+        body.linearVelocity = new Vector2(0, body.linearVelocity.y);
+        
+        // Update animator parameters to return to idle/run
+        anim.SetBool("run", false);
+        anim.SetBool("grounded", isGrounded());
+    }
+
+    public bool IsDashing()
+    {
+        return isDashing;
     }
 }

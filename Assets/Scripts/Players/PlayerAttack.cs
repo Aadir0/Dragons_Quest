@@ -22,7 +22,9 @@ public class PlayerAttack : MonoBehaviour
     {
         //Left mouse click pressed + cooldown finished + movement allows attacking
         if (Input.GetMouseButton(0) && cooldownTimer > attackCooldown && playerMovement.canAttack())
+        {
             Attack();
+        }
 
         //Increase cooldown timer every frame
         cooldownTimer += Time.deltaTime;

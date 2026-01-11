@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 5120283889342736311}
   - component: {fileID: 1218122110356818558}
   - component: {fileID: 3519654488417917672}
+  - component: {fileID: 5357990927505698287}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -222,6 +223,10 @@ MonoBehaviour:
   JumpAudio: {fileID: 8300000, guid: e8fefc85780f3e64d9245fc41d5c5654, type: 3}
   coyoteTime: 0.25
   extraJump: 0
+  dashSpeed: 20
+  dashDuration: 0.2
+  dashCooldown: 1
+  dashAudio: {fileID: 8300000, guid: 2caa4e18160d65e4f858b55e9fca4808, type: 3}
 --- !u!95 &5120283889342736311
 Animator:
   serializedVersion: 7
@@ -256,7 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e26f534ea637349a0bc6f44b578ba9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 3
+  startingHealth: 5
   iFramesDuration: 0.7
   numberOfFlashes: 3
   components:
@@ -277,6 +282,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerRespawn1
   checkpointAudio: {fileID: 8300000, guid: efe67e8d737f89041b35023a45669d69, type: 3}
+--- !u!114 &5357990927505698287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5613285039527847905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93c9b5b7526cf0940afe7ea2a082e2c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MeleeAttack
+  damage: 4
+  range: 2
+  colliderDistance: 0.5
+  boxCollider: {fileID: 6890501653524847625}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  meleeSound: {fileID: 8300000, guid: 98858fd4bcc817243851ed9625b132c3, type: 3}
+  attackCooldown: 1
 --- !u!1 &6310885857191110710
 GameObject:
   m_ObjectHideFlags: 0

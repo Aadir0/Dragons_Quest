@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Projectile : MonoBehaviour
 {
@@ -37,7 +38,14 @@ public class Projectile : MonoBehaviour
 
         if (collision.CompareTag("Enemy"))
         {
-            collision.GetComponent<Health>().TakeDamage(1);
+            if (SceneManager.GetActiveScene().buildIndex == 3)
+            {
+                collision.GetComponent<Health>().TakeDamage(2);
+            }
+            else
+            {
+                collision.GetComponent<Health>().TakeDamage(1);
+            }
         }
     }
 
