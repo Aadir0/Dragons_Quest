@@ -1,4 +1,0 @@
-repository "2D_Game/Dragons_Quest@13469856424959@cloud"
-  path "/"
-    br "/main"
-    co "/main"
