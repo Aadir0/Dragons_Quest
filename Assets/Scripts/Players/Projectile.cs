@@ -40,11 +40,11 @@ public class Projectile : MonoBehaviour
         {
             if (SceneManager.GetActiveScene().buildIndex == 3)
             {
-                collision.GetComponent<Health>().TakeDamage(2);
+                collision.GetComponent<EnemyHealth>().TakeDamage(2);
             }
             else
             {
-                collision.GetComponent<Health>().TakeDamage(1);
+                collision.GetComponent<EnemyHealth>().TakeDamage(1);
             }
         }
     }

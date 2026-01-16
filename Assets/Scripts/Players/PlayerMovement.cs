@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement parameters")]
     // Serialize Field is used to make any variable accesible and editible directly from unit. But it is diffrent from public since it make any variable accesible from any other script.
-    [SerializeField] private float speed;
+    public float speed;
     [SerializeField] private float jumpPower;
 
     // Layers to detect ground and walls for jumping on walls or jumping checks.
@@ -39,9 +39,9 @@ public class PlayerMovement : MonoBehaviour
     private int jumpCounter;
 
     [Header("Dash")]
-    [SerializeField] private float dashSpeed = 20f;
+    [SerializeField] private float dashSpeed = 10f;
     [SerializeField] private float dashDuration = 0.2f;
-    [SerializeField] private float dashCooldown = 1f;
+    [SerializeField] private float dashCooldown = 2f;
     [SerializeField] private AudioClip dashAudio;
     private bool isDashing = false;
     private float dashTimeLeft = 0f;
@@ -64,25 +64,25 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        // Update dash cooldown timer
+        //Update dash cooldown timer
         if (dashCooldownTimer > 0)
             dashCooldownTimer -= Time.deltaTime;
 
-        // Handle dashing
+        //Handle dashing
         if (isDashing)
         {
             HandleDash();
-            return; // Skip normal movement while dashing
+            return; //Skip normal movement while dashing
         }
 
-        // Check for dash input (Left Ctrl)
+        //Check for dash input (Left Ctrl)
         if (Input.GetKeyDown(KeyCode.LeftControl) && dashCooldownTimer <= 0 && !isDashing && isGrounded())
         {
             StartDash();
             return;
         }
 
-        // To get horizontal input keys.
+        //To get horizontal input keys.
         horizontalInput = Input.GetAxis("Horizontal");
 
         //Flip player when moving left-right
@@ -190,7 +190,7 @@ public class PlayerMovement : MonoBehaviour
     //public so that other scripts can use it
     public bool canAttack()
     {
-        //Player can't shoot while on wall and not dashing
+        //Player can't shoot while on wall and dashing
         return !onWall() && !isDashing;
     }
 
@@ -201,14 +201,14 @@ public class PlayerMovement : MonoBehaviour
         dashTimeLeft = dashDuration;
         dashCooldownTimer = dashCooldown;
         
-        // Play dash animation
+        //Play dash animation
         anim.SetTrigger("dash");
         
-        // Play dash sound
+        //Play dash sound
         if (SoundManager.instance != null && dashAudio != null)
             SoundManager.instance.Playsound(dashAudio);
         
-        // Enable invincibility - ignore collision with Enemy/Trap layer (layer 10)
+        //Enable invincibility - ignore collision with Enemy/Trap layer (layer 10)
         Physics2D.IgnoreLayerCollision(8, 10, true);
         Physics2D.IgnoreLayerCollision(8, 9, true);
     }
@@ -217,11 +217,11 @@ public class PlayerMovement : MonoBehaviour
     {
         dashTimeLeft -= Time.deltaTime;
         
-        // Perform dash movement in the direction player is facing
+        //Perform dash movement in the direction player is facing
         float dashDirection = Mathf.Sign(transform.localScale.x);
         body.linearVelocity = new Vector2(dashDirection * dashSpeed, 0);
         
-        // End dash when time runs out
+        //End dash when time runs out
         if (dashTimeLeft <= 0)
         {
             EndDash();
@@ -233,14 +233,14 @@ public class PlayerMovement : MonoBehaviour
         isDashing = false;
         dashTimeLeft = 0f;
         
-        // Disable invincibility - re-enable collision with Enemy/Trap layer (layer 10)
+        //Disable invincibility - re-enable collision with Enemy/Trap layer (layer 10)
         Physics2D.IgnoreLayerCollision(8, 10, false);
         Physics2D.IgnoreLayerCollision(8, 9, false);
         
-        // Reset velocity
+        //Reset velocity
         body.linearVelocity = new Vector2(0, body.linearVelocity.y);
         
-        // Update animator parameters to return to idle/run
+        //Update animator parameters to return to idle/run
         anim.SetBool("run", false);
         anim.SetBool("grounded", isGrounded());
     }

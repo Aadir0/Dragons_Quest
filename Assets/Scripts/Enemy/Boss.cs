@@ -1,5 +1,3 @@
-using NUnit.Framework;
-using UnityEditor;
 using UnityEngine;
 
 public class Boss : MonoBehaviour
@@ -145,7 +143,7 @@ public class Boss : MonoBehaviour
             if (facingRight != playerIsRight)
             {
                 Vector3 newScale = transform.localScale;
-                newScale.x = -1.5f; // This preserves the magnitude, just flips the sign
+                newScale.x = -1; // This preserves the magnitude, just flips the sign
                 transform.localScale = newScale;
             }
         }
@@ -200,11 +198,11 @@ public class Boss : MonoBehaviour
             int fireballIndex = FindFireballs();
             fireballs[fireballIndex].transform.position = firepoint.position;
             
-            // Get the BossFireball component and activate it
+            //Get the BossFireball component and activate it
             BossFireball fireball = fireballs[fireballIndex].GetComponent<BossFireball>();
             if (fireball != null)
             {
-                // Set direction based on which way boss is facing
+                //Set direction based on which way boss is facing
                 float direction = Mathf.Sign(transform.localScale.x);
                 fireball.ActivateFireball(direction);
             }
@@ -225,6 +223,7 @@ public class Boss : MonoBehaviour
 
     private void BossDeath()
     {
+        Debug.Log("Boss has died.");
         isDead = true;
         
         if (EnemyPatrol != null)

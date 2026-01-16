@@ -35,6 +35,7 @@ public class Health : MonoBehaviour
     [Header ("Audio Clips")]
     [SerializeField] private AudioClip Deathsound;
     [SerializeField] private AudioClip hurtsound;
+    private PlayerMovement player;
 
     private void Awake()
     {
@@ -44,6 +45,7 @@ public class Health : MonoBehaviour
         //To get components
         anim = GetComponent<Animator>();
         SpriteRen = GetComponent<SpriteRenderer>();
+        player = GetComponent<PlayerMovement>();
     }
 
     //-------------Take-Damage------------------
@@ -110,6 +112,8 @@ public class Health : MonoBehaviour
     {
         //Disable collison between player layer 8 and Enemy/Trap layer 10
         Physics2D.IgnoreLayerCollision(8, 10, true);
+        Physics2D.IgnoreLayerCollision(8, 9, true);
+        player.speed = 2; //Reduce player speed during invincibility
 
         //Flashes the color several time
         for (int i = 0; i < numberOfFlashes; i++)
@@ -125,6 +129,8 @@ public class Health : MonoBehaviour
 
         //After invincibility ends enable the collision between layer 8 and 10
         Physics2D.IgnoreLayerCollision(8, 10, false);
+        Physics2D.IgnoreLayerCollision(8, 9, false);
+        player.speed = 5; //Return to normal speed
     }
 
     private void deactivate()

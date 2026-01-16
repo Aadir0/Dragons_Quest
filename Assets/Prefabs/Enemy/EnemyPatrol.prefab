@@ -207,10 +207,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3611252868260891911, guid: b8dec0ea6a39e1546993ab026ea7f2f4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 464281000160493068, guid: b8dec0ea6a39e1546993ab026ea7f2f4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9128817033069411056}
   m_SourcePrefab: {fileID: 100100000, guid: b8dec0ea6a39e1546993ab026ea7f2f4, type: 3}
 --- !u!95 &1662232848009057834 stripped
 Animator:
@@ -222,7 +226,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2418869466945151195, guid: b8dec0ea6a39e1546993ab026ea7f2f4, type: 3}
   m_PrefabInstance: {fileID: 7186921487337381079}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 7335350179964035803}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70c73dc8fcf196a4caeacaf4d678df2d, type: 3}
@@ -233,3 +237,26 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3685053087911223294, guid: b8dec0ea6a39e1546993ab026ea7f2f4, type: 3}
   m_PrefabInstance: {fileID: 7186921487337381079}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7335350179964035803 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 464281000160493068, guid: b8dec0ea6a39e1546993ab026ea7f2f4, type: 3}
+  m_PrefabInstance: {fileID: 7186921487337381079}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9128817033069411056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7335350179964035803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b6f37b20c6ef37498c388c6ae1dd0f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
+  startingHealth: 7
+  components:
+  - {fileID: 4768361980867132428}
+  - {fileID: 6884741308320397788}
+  Deathsound: {fileID: 8300000, guid: 98cdc25cc2ebf9d4bb2078f9e765cb73, type: 3}
+  hurtsound: {fileID: 8300000, guid: b6be29eb57b3a01458868726cbb030b0, type: 3}
