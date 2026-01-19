@@ -28,4 +28,9 @@ public class SoundManager : MonoBehaviour
     {
         Source.PlayOneShot(_sound);
     }
+
+    public void StopAll()
+    {
+        Source.Stop();
+    }
 }

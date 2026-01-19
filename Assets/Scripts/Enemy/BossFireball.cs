@@ -4,7 +4,7 @@ public class BossFireball : MonoBehaviour
 {
     [SerializeField] private float speed = 10f;
     [SerializeField] private float damage = 3f;
-    [SerializeField] private float lifetime = 5f;
+    [SerializeField] private float lifetime = 2f;
     
     private float direction;
     private bool hit;

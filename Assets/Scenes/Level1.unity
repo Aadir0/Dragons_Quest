@@ -25317,21 +25317,21 @@ MonoBehaviour:
   m_HandleRect: {fileID: 7984742602097692485}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 100
+  m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8800239900385031164}
+      - m_Target: {fileID: 7304569362802228151}
         m_TargetAssemblyTypeName: AudioSwitching, Assembly-CSharp
-        m_MethodName: Volume
+        m_MethodName: SetVolume
         m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 1
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 1
@@ -25629,7 +25629,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8800239900385031164}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: AudioSwitching, Assembly-CSharp
         m_MethodName: BacktoPause
         m_Mode: 1
@@ -26014,7 +26014,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
   m_Navigation:
-    m_Mode: 3
+    m_Mode: -1
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -26045,27 +26045,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8800239900385031164}
+      - m_Target: {fileID: 7304569362802228151}
         m_TargetAssemblyTypeName: AudioSwitching, Assembly-CSharp
-        m_MethodName: Volume
-        m_Mode: 4
+        m_MethodName: StopSound
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 8800239900385031164}
-        m_TargetAssemblyTypeName: AudioSwitching, Assembly-CSharp
-        m_MethodName: Volume
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 100
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -29183,7 +29171,7 @@ GameObject:
   - component: {fileID: 237065431729637184}
   - component: {fileID: 7304569362802228150}
   - component: {fileID: 3576408587394342095}
-  - component: {fileID: 8800239900385031164}
+  - component: {fileID: 7304569362802228151}
   m_Layer: 5
   m_Name: Audio Manager
   m_TagString: Untagged
@@ -29355,6 +29343,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7031884767140454365}
   m_CullTransparentMesh: 1
+--- !u!114 &7304569362802228151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7031884767140454365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8b3b3e03dc360b4288d842f461406a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioSwitching
+  pauseMenu: {fileID: 3394710890878819567}
+  audioMenu: {fileID: 5789297366854622982}
+  mixer: {fileID: 24100000, guid: 0e64648d92b563c4da3997ae480ac5ca, type: 2}
 --- !u!222 &7324079914595063380
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -30021,21 +30024,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Paused
---- !u!114 &8800239900385031164
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7031884767140454365}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8b3b3e03dc360b4288d842f461406a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AudioSwitching
-  pauseMenu: {fileID: 3394710890878819567}
-  audioMenu: {fileID: 5789297366854622982}
-  mixer: {fileID: 24100000, guid: 0e64648d92b563c4da3997ae480ac5ca, type: 2}
 --- !u!1 &8854913816434465460
 GameObject:
   m_ObjectHideFlags: 0

@@ -44,16 +44,34 @@ public class Boss : MonoBehaviour
     private Health playerhealth;
     private Health bossHealth;
     private bool isDead = false;
+    private Transform playerTransform;
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
         EnemyPatrol = GetComponentInParent<EnemyPatrol>();
         bossHealth = GetComponent<Health>();
+        if (boxcollider == null)
+            boxcollider = GetComponent<BoxCollider2D>();
+
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj != null)
+            playerTransform = playerObj.transform;
     }
 
     private void Update()
     {
+        bool playerInDetectionRange = playerTransform != null &&
+        Vector2.Distance(transform.position, playerTransform.position) <= detectionRadius;
+
+        if (playerInDetectionRange)
+            FlipTowardsPlayer();
+
+        bool seesPlayer = playerInDetectionRange && PlayerInSight();
+
+        if (EnemyPatrol != null)
+            EnemyPatrol.SetPaused(playerInDetectionRange);
+
         if (!isDead && bossHealth != null && bossHealth.currentHealth <= 0)
         {
             BossDeath();
@@ -66,13 +84,11 @@ public class Boss : MonoBehaviour
         meleeCooldownTimer += Time.deltaTime;
         rangedCooldownTimer += Time.deltaTime;
 
-        if (PlayerInSight())
+        if (seesPlayer)
         {
-            FlipTowardsPlayer();
-            
             float distanceToPlayer = GetDistanceToPlayer();
             
-            if (canMeleeAttack && distanceToPlayer <= meleeRange && meleeCooldownTimer >= meleeAttackCooldown && playerhealth != null && playerhealth.currentHealth > 0)
+            if (canMeleeAttack && playerhealth != null && playerhealth.currentHealth > 0 && distanceToPlayer <= meleeRange && meleeCooldownTimer >= meleeAttackCooldown)
             {
                 PerformMeleeAttack();
             }
@@ -80,11 +96,6 @@ public class Boss : MonoBehaviour
             {
                 PerformRangedAttack();
             }
-        }
-
-        if (EnemyPatrol != null)
-        {
-            EnemyPatrol.enabled = !PlayerInSight();
         }
     }
 
@@ -104,22 +115,26 @@ public class Boss : MonoBehaviour
 
     private bool PlayerInSight()
     {
+        if (boxcollider == null)
+            return false;
+
+        if (playerTransform == null)
+            return false;
+
         int maxRange = Mathf.Max(meleeRange, rangedRange);
-        RaycastHit2D hit = Physics2D.BoxCast(
-            boxcollider.bounds.center + transform.right * maxRange * transform.localScale.x * colliderDistance, 
-            new Vector3(boxcollider.bounds.size.x * maxRange, boxcollider.bounds.size.y, boxcollider.bounds.size.z), 
-            0, 
-            Vector2.left, 
-            0.2f, 
-            playerLayer
-        );
 
-        if (hit.collider != null)
-        {
-            playerhealth = hit.transform.GetComponent<Health>();
-        }
+        float directionSign = Mathf.Sign(playerTransform.position.x - transform.position.x);
+        if (directionSign == 0)
+            directionSign = 1;
 
-        return hit.collider != null;
+        Vector2 center = boxcollider.bounds.center + Vector3.right * (maxRange * colliderDistance * directionSign);
+        Vector2 size = new Vector2(boxcollider.bounds.size.x * maxRange, boxcollider.bounds.size.y);
+
+        Collider2D hit = Physics2D.OverlapBox(center, size, 0f, playerLayer);
+        if (hit != null)
+            playerhealth = hit.GetComponent<Health>();
+
+        return hit != null;
     }
 
     private float GetDistanceToPlayer()
@@ -133,20 +148,22 @@ public class Boss : MonoBehaviour
 
     private void FlipTowardsPlayer()
     {
-        if (playerhealth != null)
+        if (playerTransform == null)
+            return;
+
+        float dx = playerTransform.position.x - transform.position.x;
+        if (dx == 0)
+            return;
+
+        if (EnemyPatrol != null)
         {
-            float playerDirection = playerhealth.transform.position.x - transform.position.x;
-            
-            bool facingRight = transform.localScale.x > 0;
-            bool playerIsRight = playerDirection > 0;
-            
-            if (facingRight != playerIsRight)
-            {
-                Vector3 newScale = transform.localScale;
-                newScale.x = -1; // This preserves the magnitude, just flips the sign
-                transform.localScale = newScale;
-            }
+            EnemyPatrol.FaceDirection(dx);
+            return;
         }
+
+        //Fallback: flip this transform directly
+        float absX = Mathf.Abs(transform.localScale.x);
+        transform.localScale = new Vector3(absX * Mathf.Sign(dx), transform.localScale.y, transform.localScale.z);
     }
 
     private void OnDrawGizmos()
@@ -190,12 +207,15 @@ public class Boss : MonoBehaviour
 
     private void RangedAttack()
     {
-        if (SoundManager.instance != null && rangedAttackSound != null)
-            SoundManager.instance.Playsound(rangedAttackSound);
-        
         if (fireballs != null && fireballs.Length > 0 && firepoint != null)
         {
             int fireballIndex = FindFireballs();
+            if (fireballIndex < 0 || fireballIndex >= fireballs.Length || fireballs[fireballIndex] == null)
+                return;
+
+            if (SoundManager.instance != null && rangedAttackSound != null)
+                SoundManager.instance.Playsound(rangedAttackSound);
+
             fireballs[fireballIndex].transform.position = firepoint.position;
             
             //Get the BossFireball component and activate it
@@ -218,7 +238,7 @@ public class Boss : MonoBehaviour
                 return i;
             }
         }
-        return 0;
+        return -1;
     }
 
     private void BossDeath()
@@ -228,6 +248,7 @@ public class Boss : MonoBehaviour
         
         if (EnemyPatrol != null)
         {
+            EnemyPatrol.SetPaused(true);
             EnemyPatrol.enabled = false;
         }
         

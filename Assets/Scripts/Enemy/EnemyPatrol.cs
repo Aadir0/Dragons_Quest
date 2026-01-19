@@ -17,6 +17,8 @@ public class EnemyPatrol : MonoBehaviour
     [Header("Enemy Animations")]
     [SerializeField] private Animator anim;
 
+    private bool paused;
+
     private void Awake()
     {
         initScale = enemy.localScale;
@@ -26,8 +28,31 @@ public class EnemyPatrol : MonoBehaviour
     {
         anim.SetBool("moving", false);
     }
+
+    public void SetPaused(bool isPaused)
+    {
+        paused = isPaused;
+        if (paused && anim != null)
+            anim.SetBool("moving", false);
+    }
+
+    public void FaceDirection(float directionX)
+    {
+        if (enemy == null)
+            return;
+
+        float sign = Mathf.Sign(directionX);
+        if (sign == 0)
+            return;
+
+        enemy.localScale = new Vector3(initScale.x * sign, initScale.y, initScale.z);
+    }
+
     private void Update()
     {
+        if (paused)
+            return;
+
         if (!movingLeft)
         {
             if (enemy.position.x >= leftEdge.position.x)
@@ -66,7 +91,7 @@ public class EnemyPatrol : MonoBehaviour
         idleTimer = 0;
         anim.SetBool("moving", true);
         //MAke enemy face direction
-       enemy.localScale = new Vector3(Mathf.Sign(initScale.x * _direction), initScale.y, initScale.z);
+       enemy.localScale = new Vector3(initScale.x * Mathf.Sign(_direction), initScale.y, initScale.z);
 
         //Make enemy move in direction
         enemy.position = new Vector3(enemy.position.x + _direction * speed, enemy.position.y, enemy.position.z);

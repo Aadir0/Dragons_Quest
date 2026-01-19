@@ -24,7 +24,7 @@ public class Projectile : MonoBehaviour
         lifetime += Time.deltaTime;
 
         //To set projectile lifetime so that it does not travle infinitly
-        if (lifetime > 5)
+        if (lifetime > 2)
             gameObject.SetActive(false);
     }
 

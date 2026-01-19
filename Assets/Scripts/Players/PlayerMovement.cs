@@ -55,11 +55,6 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        
-        if (SceneManager.GetActiveScene().buildIndex == 3)
-        {
-            extraJump = 1;
-        }
     }
 
     private void Update()
@@ -108,7 +103,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (onWall())
         {
-            body.gravityScale = 7;
             body.linearVelocity = Vector2.zero;
         }
         else

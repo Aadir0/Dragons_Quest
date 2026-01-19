@@ -49,10 +49,8 @@ public class MeleeAttack : MonoBehaviour
         cooldownTimer = 0;
     }
 
-    // This method should be called from Animation Event
     private void DamageEnemy()
     {
-        // Check if any enemy is in range
         RaycastHit2D hit = Physics2D.BoxCast(
             boxCollider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance,
             new Vector3(boxCollider.bounds.size.x * range, boxCollider.bounds.size.y, boxCollider.bounds.size.z),

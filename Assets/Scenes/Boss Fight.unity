@@ -3138,7 +3138,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: -10}
+  m_LocalPosition: {x: -0.15, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8209,7 +8209,7 @@ Transform:
   m_GameObject: {fileID: 1261870631}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.2, y: 0, z: 0}
+  m_LocalPosition: {x: -9.17, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10813,6 +10813,18 @@ PrefabInstance:
     - target: {fileID: 5613285039527847905, guid: aeff3e1a72048964387c81291fa5e5aa, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6890501653524847625, guid: aeff3e1a72048964387c81291fa5e5aa, type: 3}
+      propertyPath: m_Size.x
+      value: 0.6693255
+      objectReference: {fileID: 0}
+    - target: {fileID: 6890501653524847625, guid: aeff3e1a72048964387c81291fa5e5aa, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6890501653524847625, guid: aeff3e1a72048964387c81291fa5e5aa, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.040679634
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15024,7 +15036,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2535985380436818321}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 100
+  m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
@@ -15032,13 +15044,13 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4025826379958846760}
         m_TargetAssemblyTypeName: AudioSwitching, Assembly-CSharp
-        m_MethodName: Volume
+        m_MethodName: SetVolume
         m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 1
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -15495,20 +15507,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4025826379958846760}
         m_TargetAssemblyTypeName: AudioSwitching, Assembly-CSharp
-        m_MethodName: Volume
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 4025826379958846760}
-        m_TargetAssemblyTypeName: AudioSwitching, Assembly-CSharp
-        m_MethodName: Volume
-        m_Mode: 4
+        m_MethodName: StopSound
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -16688,8 +16688,8 @@ Transform:
   m_GameObject: {fileID: 5320573336034157991}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 43.75, y: -2.23, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 43.75, y: -1.62, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1944885708}
@@ -16749,11 +16749,11 @@ MonoBehaviour:
   canRangedAttack: 1
   meleeAttackCooldown: 2
   rangedAttackCooldown: 2
-  meleeDamage: 3
+  meleeDamage: 2
   rangedDamage: 1
   meleeRange: 2
   rangedRange: 10
-  detectionRadius: 15
+  detectionRadius: 12
   firepoint: {fileID: 1944885708}
   fireballs:
   - {fileID: 5744787398757580816}

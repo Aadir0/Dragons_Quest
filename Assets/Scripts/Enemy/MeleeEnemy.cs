@@ -1,5 +1,3 @@
-using NUnit.Framework;
-using UnityEditor;
 using UnityEngine;
 
 public class MeleeEnemy : MonoBehaviour

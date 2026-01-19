@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Threading;
-using NUnit.Framework.Constraints;
 using UnityEngine;
 
 public class Health : MonoBehaviour
@@ -61,26 +60,13 @@ public class Health : MonoBehaviour
         if (currentHealth > 0)
         {
             anim.SetTrigger("hurt");            //Play hurt animation
-            // StartBlink();
-            // becomeInvisible(1f);
             StartCoroutine(Invernability());    //Start i-frames so player can't get damage for some times
             if (SoundManager.instance != null)
                 SoundManager.instance.Playsound(hurtsound);
         }
         else
         {
-            //Character just reached 0 health - trigger death
-            dead = true;  //Mark player as dead FIRST to prevent multiple death triggers
-            anim.SetTrigger("die");         //Play death animation
-
-            //Disable components but NOT the animator
-            foreach (Behaviour component in components)
-            {
-                component.enabled = false;
-            }
-
-            if (SoundManager.instance != null)
-                SoundManager.instance.Playsound(Deathsound);
+            Die();
         }
     }
 
@@ -97,8 +83,6 @@ public class Health : MonoBehaviour
         AddHealth(startingHealth);
         anim.ResetTrigger("die");
         anim.Play("idle");
-        // StartBlink();
-        // becomeInvisible(1f);
         StartCoroutine(Invernability());
 
         foreach (Behaviour component in components)
@@ -112,8 +96,7 @@ public class Health : MonoBehaviour
     {
         //Disable collison between player layer 8 and Enemy/Trap layer 10
         Physics2D.IgnoreLayerCollision(8, 10, true);
-        Physics2D.IgnoreLayerCollision(8, 9, true);
-        player.speed = 2; //Reduce player speed during invincibility
+        player.speed = 4; //Reduce player speed during invincibility
 
         //Flashes the color several time
         for (int i = 0; i < numberOfFlashes; i++)
@@ -129,12 +112,24 @@ public class Health : MonoBehaviour
 
         //After invincibility ends enable the collision between layer 8 and 10
         Physics2D.IgnoreLayerCollision(8, 10, false);
-        Physics2D.IgnoreLayerCollision(8, 9, false);
         player.speed = 5; //Return to normal speed
     }
 
-    private void deactivate()
+    private void Die()
     {
-        gameObject.SetActive(false);
+        //Character just reached 0 health - trigger death
+        dead = true;  //Mark player as dead FIRST to prevent multiple death triggers
+        anim.SetTrigger("die");         //Play death animation
+
+        //Disable components but NOT the animator
+        foreach (Behaviour component in components)
+        {
+            component.enabled = false;
+        }
+
+        if (SoundManager.instance != null)
+        {
+            SoundManager.instance.Playsound(Deathsound);
+        }
     }
 }
