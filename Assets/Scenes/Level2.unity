@@ -5257,7 +5257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FollowPlayer
   playerTransform: {fileID: 326982213}
-  minX: 0
+  minX: 0.2
   maxX: 65.68
 --- !u!1 &520323563
 GameObject:
